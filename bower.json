@@ -1,0 +1,26 @@
+{
+  "name": "highlighted-text",
+  "version": "1.0.0",
+  "authors": [
+    "Next Century Corporation"
+  ],
+  "description": "A polymer web component that shows tagged text with highlights.",
+  "keywords": [
+    "web-component",
+    "polymer"
+  ],
+  "main": "highlighted-text.html",
+  "license": "http://polymer.github.io/LICENSE.txt",
+  "homepage": "https://github.com/DigElements/highlighted-text/",
+  "ignore": [
+    "/.*",
+    "/test/"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.2.0"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "web-component-tester": "^4.0.0"
+  }
+}
