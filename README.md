@@ -2,15 +2,15 @@
 
 A polymer web component that shows tagged text with highlights.
 
-### Example:
+### Example
 ```html
-        <highlighted-text
-          text="The <tag>quick brown</tag> fox jumped over the <tag>lazy</tag> dog."
-          tags="tag">
-        </highlighted-text>
+    <highlighted-text
+        text="The <tag>quick brown</tag> fox jumped over the <tag>lazy</tag> dog."
+        tags="tag">
+    </highlighted-text>
 ```
 
-### Styling:
+### Styling
 
 Custom property            | Description                        | Default
 ---------------------------|------------------------------------|--------
