@@ -1,6 +1,6 @@
 # highlighted-text
 
-A polymer web component that shows tagged text with highlights.
+A Polymer Element showing tagged text with highlights.
 
 ### Example
 ```html
@@ -11,6 +11,8 @@ A polymer web component that shows tagged text with highlights.
 ```
 
 ### Styling
+
+`<highlighted-text>` provides the following custom properties and mixins for styling:
 
 Custom property            | Description                        | Default
 ---------------------------|------------------------------------|--------

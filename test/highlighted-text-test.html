@@ -16,61 +16,61 @@
 
   <script>
     suite('<highlighted-text> with no highlights', function() {
-      var component;
+      var element;
 
       setup(function(done) {
-        component = fixture('highlighted-text-fixture');
-        component.text = 'The quick brown fox jumped over the lazy dog.';
+        element = fixture('highlighted-text-fixture');
+        element.text = 'The quick brown fox jumped over the lazy dog.';
         flush(function() {
           done();
         });
       });
 
       test('text does equal input value', function() {
-        expect(component.text).to.equal('The quick brown fox jumped over the lazy dog.');
+        expect(element.text).to.equal('The quick brown fox jumped over the lazy dog.');
       });
 
       test('tags does equal default value', function() {
-        expect(component.tags).to.equal('highlight');
+        expect(element.tags).to.equal('highlight');
       });
 
       test('_spans does equal correct value', function() {
-        expect(component._spans).to.deep.equal([{
+        expect(element._spans).to.deep.equal([{
           styleClass: '',
           text: 'The quick brown fox jumped over the lazy dog.'
         }]);
       });
 
       test('has a span element', function() {
-        expect(component.$$('#span0')).to.exist;
-        expect(component.$$('#span0').className.split(' ').indexOf('highlight')).to.equal(-1);
-        expect(component.$$('#span0').innerHTML).to.equal('The quick brown fox jumped over the lazy dog.');
-        expect(component.$$('#span1')).to.not.exist;
+        expect(element.$$('#span0')).to.exist;
+        expect(element.$$('#span0').className.split(' ').indexOf('highlight')).to.equal(-1);
+        expect(element.$$('#span0').innerHTML).to.equal('The quick brown fox jumped over the lazy dog.');
+        expect(element.$$('#span1')).to.not.exist;
       });
     });
 
     suite('<highlighted-text> with highlights', function() {
-      var component;
+      var element;
 
       setup(function(done) {
-        component = fixture('highlighted-text-fixture');
-        component.tags = 'tag';
-        component.text = 'The <tag>quick brown</tag> <tag>fox</tag> jumped over the <tag>lazy</tag> dog.';
+        element = fixture('highlighted-text-fixture');
+        element.tags = 'tag';
+        element.text = 'The <tag>quick brown</tag> <tag>fox</tag> jumped over the <tag>lazy</tag> dog.';
         flush(function() {
           done();
         });
       });
 
       test('text does equal input value', function() {
-        expect(component.text).to.equal('The <tag>quick brown</tag> <tag>fox</tag> jumped over the <tag>lazy</tag> dog.');
+        expect(element.text).to.equal('The <tag>quick brown</tag> <tag>fox</tag> jumped over the <tag>lazy</tag> dog.');
       });
 
       test('tags does equal input value', function() {
-        expect(component.tags).to.equal('tag');
+        expect(element.tags).to.equal('tag');
       });
 
       test('_spans does equal correct value', function() {
-        expect(component._spans).to.deep.equal([{
+        expect(element._spans).to.deep.equal([{
           styleClass: '',
           text: 'The '
         }, {
@@ -95,28 +95,28 @@
       });
 
       test('has correct span elements', function() {
-        expect(component.$$('#span0')).to.exist;
-        expect(component.$$('#span0').className.split(' ').indexOf('highlight')).to.equal(-1);
-        expect(component.$$('#span0').innerHTML).to.equal('The ');
-        expect(component.$$('#span1')).to.exist;
-        expect(component.$$('#span1').className.split(' ').indexOf('highlight')).to.not.equal(-1);
-        expect(component.$$('#span1').innerHTML).to.equal('quick brown');
-        expect(component.$$('#span2')).to.exist;
-        expect(component.$$('#span2').className.split(' ').indexOf('highlight')).to.equal(-1);
-        expect(component.$$('#span2').innerHTML).to.equal(' ');
-        expect(component.$$('#span3')).to.exist;
-        expect(component.$$('#span3').className.split(' ').indexOf('highlight')).to.not.equal(-1);
-        expect(component.$$('#span3').innerHTML).to.equal('fox');
-        expect(component.$$('#span4')).to.exist;
-        expect(component.$$('#span4').className.split(' ').indexOf('highlight')).to.equal(-1);
-        expect(component.$$('#span4').innerHTML).to.equal(' jumped over the ');
-        expect(component.$$('#span5')).to.exist;
-        expect(component.$$('#span5').className.split(' ').indexOf('highlight')).to.not.equal(-1);
-        expect(component.$$('#span5').innerHTML).to.equal('lazy');
-        expect(component.$$('#span6')).to.exist;
-        expect(component.$$('#span6').className.split(' ').indexOf('highlight')).to.equal(-1);
-        expect(component.$$('#span6').innerHTML).to.equal(' dog.');
-        expect(component.$$('#span7')).to.not.exist;
+        expect(element.$$('#span0')).to.exist;
+        expect(element.$$('#span0').className.split(' ').indexOf('highlight')).to.equal(-1);
+        expect(element.$$('#span0').innerHTML).to.equal('The ');
+        expect(element.$$('#span1')).to.exist;
+        expect(element.$$('#span1').className.split(' ').indexOf('highlight')).to.not.equal(-1);
+        expect(element.$$('#span1').innerHTML).to.equal('quick brown');
+        expect(element.$$('#span2')).to.exist;
+        expect(element.$$('#span2').className.split(' ').indexOf('highlight')).to.equal(-1);
+        expect(element.$$('#span2').innerHTML).to.equal(' ');
+        expect(element.$$('#span3')).to.exist;
+        expect(element.$$('#span3').className.split(' ').indexOf('highlight')).to.not.equal(-1);
+        expect(element.$$('#span3').innerHTML).to.equal('fox');
+        expect(element.$$('#span4')).to.exist;
+        expect(element.$$('#span4').className.split(' ').indexOf('highlight')).to.equal(-1);
+        expect(element.$$('#span4').innerHTML).to.equal(' jumped over the ');
+        expect(element.$$('#span5')).to.exist;
+        expect(element.$$('#span5').className.split(' ').indexOf('highlight')).to.not.equal(-1);
+        expect(element.$$('#span5').innerHTML).to.equal('lazy');
+        expect(element.$$('#span6')).to.exist;
+        expect(element.$$('#span6').className.split(' ').indexOf('highlight')).to.equal(-1);
+        expect(element.$$('#span6').innerHTML).to.equal(' dog.');
+        expect(element.$$('#span7')).to.not.exist;
       });
     });
   </script>
