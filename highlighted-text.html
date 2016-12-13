@@ -4,11 +4,12 @@
 A Polymer Element showing tagged text with highlights.
 
 ### Example
-
-    <highlighted-text
-        text="The <tag>quick brown</tag> fox jumped over the <tag>lazy</tag> dog."
-        tags="tag">
-    </highlighted-text>
+```html
+<highlighted-text
+  text="The <tag>quick brown</tag> fox jumped over the <tag>lazy</tag> dog."
+  tags="tag">
+</highlighted-text>
+```
 
 ### Styling
 
@@ -47,6 +48,8 @@ Custom property            | Description                        | Default
 
       properties: {
         /**
+         * (Optional)
+         *
          * The tags (without punctuation) surrounding the words to highlight in the text.  For example, if the text is '<tag>Text</tag>' then set the tags to 'tag'.
          *
          * @type {String}
@@ -58,6 +61,8 @@ Custom property            | Description                        | Default
         },
 
         /**
+         * (Required)
+         *
          * The text containing words to highlight.
          *
          * @type {String}
