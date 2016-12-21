@@ -1,10 +1,9 @@
 {
   "name": "highlighted-text",
-  "version": "1.0.1",
-  "authors": [
-    "Next Century Corporation"
-  ],
   "description": "A Polymer Element showing tagged text with highlights.",
+  "version": "1.0.1",
+  "authors": ["Next Century Corporation"],
+  "license": "Apache-2.0",
   "keywords": [
     "web-component",
     "polymer"
