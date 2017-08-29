@@ -18,24 +18,26 @@ limitations under the License.
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-  <script src="../../webcomponentsjs/webcomponents-lite.min.js"></script>
+  <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
   <link rel="import" href="../highlighted-text.html">
 </head>
 
 <body unresolved>
-  <template is="dom-bind" id="demo">
-    <p>text (replacing square brackets with angle brackets):</p>
+  <dom-bind id="demo">
+    <template is="dom-bind">
+      <p>text (replacing square brackets with angle brackets):</p>
 
-    <p>The [tag]quick brown[/tag] fox jumped over the [tag]lazy[/tag] dog.</p>
+      <p>The [tag]quick brown[/tag] fox jumped over the [tag]lazy[/tag] dog.</p>
 
-    <p>tags: tag</p>
+      <p>tags: tag</p>
 
-    <p>highlighted-text:</p>
+      <p>highlighted-text:</p>
 
-    <highlighted-text
-      text="The <tag>quick brown</tag> fox jumped over the <tag>lazy</tag> dog."
-      tags="tag">
-    </highlighted-text>
-  </template>
+      <highlighted-text
+        text="The <tag>quick brown</tag> fox jumped over the <tag>lazy</tag> dog."
+        tags="tag">
+      </highlighted-text>
+    </template>
+  </dom-bind>
 </body>
 </html>
