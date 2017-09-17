@@ -31,9 +31,10 @@ A Polymer Element showing tagged text with highlights.
 
 `<highlighted-text>` provides the following custom properties and mixins for styling:
 
-Custom property            | Description                        | Default
----------------------------|------------------------------------|--------
-`--highlighted-text-color` | The color of the highlighted text. | yellow
+Custom property                  | Description                        | Default
+---------------------------------|------------------------------------|--------
+`--highlighted-text-color`       | The color of the highlighted text. | yellow
+`--highlighted-text-style-mixin` | Custom style mixin for the text.   | none
 
 @demo demo/index.html
 -->
@@ -45,14 +46,20 @@ Custom property            | Description                        | Default
         display: block;
       }
 
+      .full-text {
+        @apply --highlighted-text-style-mixin;
+      }
+
       .highlight {
         background-color: var(--highlighted-text-color, yellow);
       }
     </style>
 
-    <template is="dom-repeat" items="[[_spans]]">
-      <span id$="[[_getId(index)]]" class$="[[item.styleClass]]">[[item.text]]</span>
-    </template>
+    <span class="full-text">
+      <template is="dom-repeat" items="[[_spans]]">
+        <span id$="[[_getId(index)]]" class$="[[item.styleClass]]">[[item.text]]</span>
+      </template>
+    </span>
   </template>
 
   <script>

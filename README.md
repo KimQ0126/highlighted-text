@@ -14,9 +14,10 @@ A Polymer Element showing tagged text with highlights.
 
 `<highlighted-text>` provides the following custom properties and mixins for styling:
 
-Custom property            | Description                        | Default
----------------------------|------------------------------------|--------
-`--highlighted-text-color` | The color of the highlighted text. | yellow
+Custom property                  | Description                        | Default
+---------------------------------|------------------------------------|--------
+`--highlighted-text-color`       | The color of the highlighted text. | yellow
+`--highlighted-text-style-mixin` | Custom style mixin for the text.   | none
 
 ### Dependencies
 
