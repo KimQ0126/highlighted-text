@@ -37,9 +37,7 @@ limitations under the License.
       setup(function(done) {
         element = fixture('highlighted-text-fixture');
         element.text = 'The quick brown fox jumped over the lazy dog.';
-        flush(function() {
-          done();
-        });
+        flush(done);
       });
 
       test('text does equal input value', function() {
@@ -72,9 +70,7 @@ limitations under the License.
         element = fixture('highlighted-text-fixture');
         element.tags = 'tag';
         element.text = 'The <tag>quick brown</tag> <tag>fox</tag> jumped over the <tag>lazy</tag> dog.';
-        flush(function() {
-          done();
-        });
+        flush(done);
       });
 
       test('text does equal input value', function() {
@@ -88,51 +84,45 @@ limitations under the License.
       test('_spans does equal correct value', function() {
         expect(element._spans).to.deep.equal([{
           styleClass: '',
-          text: 'The '
+          text: 'The'
         }, {
           styleClass: 'highlight',
           text: 'quick brown'
-        }, {
-          styleClass: '',
-          text: ' '
         }, {
           styleClass: 'highlight',
           text: 'fox'
         }, {
           styleClass: '',
-          text: ' jumped over the '
+          text: 'jumped over the'
         }, {
           styleClass: 'highlight',
           text: 'lazy'
         }, {
           styleClass: '',
-          text: ' dog.'
+          text: 'dog.'
         }]);
       });
 
       test('has correct span elements', function() {
         expect(element.$$('#span0')).to.exist;
         expect(element.$$('#span0').className.split(' ').indexOf('highlight')).to.equal(-1);
-        expect(element.$$('#span0').innerHTML).to.equal('The ');
+        expect(element.$$('#span0').innerHTML).to.equal('The');
         expect(element.$$('#span1')).to.exist;
         expect(element.$$('#span1').className.split(' ').indexOf('highlight')).to.not.equal(-1);
         expect(element.$$('#span1').innerHTML).to.equal('quick brown');
         expect(element.$$('#span2')).to.exist;
-        expect(element.$$('#span2').className.split(' ').indexOf('highlight')).to.equal(-1);
-        expect(element.$$('#span2').innerHTML).to.equal(' ');
+        expect(element.$$('#span2').className.split(' ').indexOf('highlight')).to.not.equal(-1);
+        expect(element.$$('#span2').innerHTML).to.equal('fox');
         expect(element.$$('#span3')).to.exist;
-        expect(element.$$('#span3').className.split(' ').indexOf('highlight')).to.not.equal(-1);
-        expect(element.$$('#span3').innerHTML).to.equal('fox');
+        expect(element.$$('#span3').className.split(' ').indexOf('highlight')).to.equal(-1);
+        expect(element.$$('#span3').innerHTML).to.equal('jumped over the');
         expect(element.$$('#span4')).to.exist;
-        expect(element.$$('#span4').className.split(' ').indexOf('highlight')).to.equal(-1);
-        expect(element.$$('#span4').innerHTML).to.equal(' jumped over the ');
+        expect(element.$$('#span4').className.split(' ').indexOf('highlight')).to.not.equal(-1);
+        expect(element.$$('#span4').innerHTML).to.equal('lazy');
         expect(element.$$('#span5')).to.exist;
-        expect(element.$$('#span5').className.split(' ').indexOf('highlight')).to.not.equal(-1);
-        expect(element.$$('#span5').innerHTML).to.equal('lazy');
-        expect(element.$$('#span6')).to.exist;
-        expect(element.$$('#span6').className.split(' ').indexOf('highlight')).to.equal(-1);
-        expect(element.$$('#span6').innerHTML).to.equal(' dog.');
-        expect(element.$$('#span7')).to.not.exist;
+        expect(element.$$('#span5').className.split(' ').indexOf('highlight')).to.equal(-1);
+        expect(element.$$('#span5').innerHTML).to.equal('dog.');
+        expect(element.$$('#span6')).to.not.exist;
       });
     });
 
@@ -142,14 +132,12 @@ limitations under the License.
       setup(function(done) {
         element = fixture('highlighted-text-fixture');
         element.tags = 'tag';
-        element.text = 'The <tag>quick<br>brown</tag> <tag>fox</tag> jumped over<br>the <tag>lazy</tag> dog.';
-        flush(function() {
-          done();
-        });
+        element.text = 'The <tag>quick<br/>brown</tag> <tag>fox</tag> jumped over<br/> <br/>the <tag>lazy</tag> dog.';
+        flush(done);
       });
 
       test('text does equal input value', function() {
-        expect(element.text).to.equal('The <tag>quick<br>brown</tag> <tag>fox</tag> jumped over<br>the <tag>lazy</tag> dog.');
+        expect(element.text).to.equal('The <tag>quick<br/>brown</tag> <tag>fox</tag> jumped over<br/> <br/>the <tag>lazy</tag> dog.');
       });
 
       test('tags does equal input value', function() {
@@ -159,7 +147,7 @@ limitations under the License.
       test('_spans does equal correct value', function() {
         expect(element._spans).to.deep.equal([{
           styleClass: '',
-          text: 'The '
+          text: 'The'
         }, {
           styleClass: 'highlight',
           text: 'quick'
@@ -170,26 +158,23 @@ limitations under the License.
           styleClass: 'highlight',
           text: 'brown'
         }, {
-          styleClass: '',
-          text: ' '
-        }, {
           styleClass: 'highlight',
           text: 'fox'
         }, {
           styleClass: '',
-          text: ' jumped over'
+          text: 'jumped over'
         }, {
           styleClass: 'newline',
           text: ''
         }, {
           styleClass: '',
-          text: 'the '
+          text: 'the'
         }, {
           styleClass: 'highlight',
           text: 'lazy'
         }, {
           styleClass: '',
-          text: ' dog.'
+          text: 'dog.'
         }]);
       });
 
@@ -197,7 +182,7 @@ limitations under the License.
         expect(element.$$('#span0')).to.exist;
         expect(element.$$('#span0').classList.contains('highlight')).to.be.false;
         expect(element.$$('#span0').classList.contains('newline')).to.be.false;
-        expect(element.$$('#span0').innerHTML).to.equal('The ');
+        expect(element.$$('#span0').innerHTML).to.equal('The');
         expect(element.$$('#span1')).to.exist;
         expect(element.$$('#span1').classList.contains('highlight')).to.be.true;
         expect(element.$$('#span1').classList.contains('newline')).to.be.false;
@@ -211,34 +196,30 @@ limitations under the License.
         expect(element.$$('#span3').classList.contains('newline')).to.be.false;
         expect(element.$$('#span3').innerHTML).to.equal('brown');
         expect(element.$$('#span4')).to.exist;
-        expect(element.$$('#span4').classList.contains('highlight')).to.be.false;
+        expect(element.$$('#span4').classList.contains('highlight')).to.be.true;
         expect(element.$$('#span4').classList.contains('newline')).to.be.false;
-        expect(element.$$('#span4').innerHTML).to.equal(' ');
+        expect(element.$$('#span4').innerHTML).to.equal('fox');
         expect(element.$$('#span5')).to.exist;
-        expect(element.$$('#span5').classList.contains('highlight')).to.be.true;
+        expect(element.$$('#span5').classList.contains('highlight')).to.be.false;
         expect(element.$$('#span5').classList.contains('newline')).to.be.false;
-        expect(element.$$('#span5').innerHTML).to.equal('fox');
+        expect(element.$$('#span5').innerHTML).to.equal('jumped over');
         expect(element.$$('#span6')).to.exist;
         expect(element.$$('#span6').classList.contains('highlight')).to.be.false;
-        expect(element.$$('#span6').classList.contains('newline')).to.be.false;
-        expect(element.$$('#span6').innerHTML).to.equal(' jumped over');
+        expect(element.$$('#span6').classList.contains('newline')).to.be.true;
+        expect(element.$$('#span6').innerHTML).to.equal('');
         expect(element.$$('#span7')).to.exist;
         expect(element.$$('#span7').classList.contains('highlight')).to.be.false;
-        expect(element.$$('#span7').classList.contains('newline')).to.be.true;
-        expect(element.$$('#span7').innerHTML).to.equal('');
+        expect(element.$$('#span7').classList.contains('newline')).to.be.false;
+        expect(element.$$('#span7').innerHTML).to.equal('the');
         expect(element.$$('#span8')).to.exist;
-        expect(element.$$('#span8').classList.contains('highlight')).to.be.false;
+        expect(element.$$('#span8').classList.contains('highlight')).to.be.true;
         expect(element.$$('#span8').classList.contains('newline')).to.be.false;
-        expect(element.$$('#span8').innerHTML).to.equal('the ');
+        expect(element.$$('#span8').innerHTML).to.equal('lazy');
         expect(element.$$('#span9')).to.exist;
-        expect(element.$$('#span9').classList.contains('highlight')).to.be.true;
+        expect(element.$$('#span9').classList.contains('highlight')).to.be.false;
         expect(element.$$('#span9').classList.contains('newline')).to.be.false;
-        expect(element.$$('#span9').innerHTML).to.equal('lazy');
-        expect(element.$$('#span10')).to.exist;
-        expect(element.$$('#span10').classList.contains('highlight')).to.be.false;
-        expect(element.$$('#span10').classList.contains('newline')).to.be.false;
-        expect(element.$$('#span10').innerHTML).to.equal(' dog.');
-        expect(element.$$('#span11')).to.not.exist;
+        expect(element.$$('#span9').innerHTML).to.equal('dog.');
+        expect(element.$$('#span10')).to.not.exist;
       });
     });
   </script>

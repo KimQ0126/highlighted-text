@@ -80,11 +80,11 @@ Custom property                  | Description                        | Default
          * The tag (with punctuation) symbolizing newlines in the text.
          *
          * @type {String}
-         * @default '<br>'
+         * @default '<br/>'
          */
         newlineTag: {
           type: String,
-          value: '<br>'
+          value: '<br/>'
         },
 
         /**
@@ -132,41 +132,45 @@ Custom property                  | Description                        | Default
        * @param {String} endTag
        * @param {String} newlineTag
        * @param {String} text
+       * @param {Array} spans
        * @return {Array} The array of span objects with the string properties "text" and "styleClass"
        * @private
        */
-      _findSpans: function(beginTag, endTag, newlineTag, text) {
-        var spans = [];
-
+      _findSpans: function(beginTag, endTag, newlineTag, text, spans) {
         var highlightBeginIndex = text.indexOf(beginTag);
         var highlightEndIndex = text.indexOf(endTag);
         var newlineIndex = newlineTag ? text.indexOf(newlineTag) : -1;
 
-        // If the text has a newline preceding the highlight...
-        if(newlineIndex >= 0 && newlineIndex < highlightBeginIndex) {
+        // If the text has a newline preceding the highlight (or no highlight exists)...
+        if(newlineIndex >= 0 && (newlineIndex < highlightBeginIndex || highlightBeginIndex < 0)) {
           // Add a span for any characters preceding the newline.
-          if(newlineIndex > 0) {
+          var nextSpan = this._removeWhitespace(text.substring(0, newlineIndex));
+          if(newlineIndex > 0 && nextSpan.length) {
             spans.push({
-              text: text.substring(0, newlineIndex),
+              text: nextSpan,
               styleClass: ''
             });
           }
 
-          spans.push({
-            text: '',
-            styleClass: 'newline'
-          });
+          // Add a span for the newline if the previous span is not a newline.
+          if(!spans.length || spans[spans.length - 1].styleClass !== 'newline') {
+            spans.push({
+              text: '',
+              styleClass: 'newline'
+            });
+          }
 
           // Recur on the text following the newline.
-          return spans.concat(this._findSpans(beginTag, endTag, newlineTag, text.substring(newlineIndex + newlineTag.length)));
+          return this._findSpans(beginTag, endTag, newlineTag, this._removeWhitespace(text.substring(newlineIndex + newlineTag.length)), spans);
         }
 
         // If the text has a highlight...
         if(highlightBeginIndex >= 0 && highlightEndIndex >= 0) {
           // Add a span for any characters preceding the highlight.
-          if(highlightBeginIndex > 0) {
+          var nextSpan = this._removeWhitespace(text.substring(0, highlightBeginIndex));
+          if(highlightBeginIndex > 0 && nextSpan.length) {
             spans.push({
-              text: text.substring(0, highlightBeginIndex),
+              text: nextSpan,
               styleClass: ''
             });
           }
@@ -174,37 +178,45 @@ Custom property                  | Description                        | Default
           // If the text has a newline inside a highlight...
           if(newlineIndex >= 0 && newlineIndex > highlightBeginIndex && newlineIndex < highlightEndIndex) {
             // Add a span for any characters in the highlight preceding the newline.
-            if(newlineIndex > highlightBeginIndex + beginTag.length) {
+            var nextSpan = this._removeWhitespace(text.substring(highlightBeginIndex + beginTag.length, newlineIndex));
+            if(newlineIndex > highlightBeginIndex + beginTag.length && nextSpan.length) {
               spans.push({
-                text: text.substring(highlightBeginIndex + beginTag.length, newlineIndex),
+                text: nextSpan,
                 styleClass: 'highlight'
               });
             }
 
-            spans.push({
-              text: '',
-              styleClass: 'newline'
-            });
+            // Add a span for the newline if the previous span is not a newline.
+            if(!spans.length || spans[spans.length - 1].styleClass !== 'newline') {
+              spans.push({
+                text: '',
+                styleClass: 'newline'
+              });
+            }
 
             // Recur on the text following the newline.  Add a highlight begin tag to the beginning of the text.
-            return spans.concat(this._findSpans(beginTag, endTag, newlineTag, (beginTag + text.substring(newlineIndex + newlineTag.length))));
+            return this._findSpans(beginTag, endTag, newlineTag, (beginTag + this._removeWhitespace(text.substring(newlineIndex + newlineTag.length))), spans);
           }
 
           // If the text does not have a newline, add a span for all characters in the highlight.
-          spans.push({
-            text: text.substring(highlightBeginIndex + beginTag.length, highlightEndIndex),
-            styleClass: 'highlight'
-          });
+          var nextSpan = this._removeWhitespace(text.substring(highlightBeginIndex + beginTag.length, highlightEndIndex));
+          if(nextSpan.length) {
+            spans.push({
+              text: nextSpan,
+              styleClass: 'highlight'
+            });
+          }
 
           // Recur on the text following the highlight.
-          return spans.concat(this._findSpans(beginTag, endTag, newlineTag, text.substring(highlightEndIndex + endTag.length)));
+          return this._findSpans(beginTag, endTag, newlineTag, this._removeWhitespace(text.substring(highlightEndIndex + endTag.length)), spans);
         }
 
         // If the text does not have a newline or highlight, add a span for the rest of the text.
-        return [{
-          text: text,
+        var nextSpan = this._removeWhitespace(text);
+        return nextSpan.length ? spans.concat({
+          text: nextSpan,
           styleClass: ''
-        }];
+        }) : spans;
       },
 
       /**
@@ -216,6 +228,17 @@ Custom property                  | Description                        | Default
        */
       _getId: function(index) {
         return 'span' + index;
+      },
+
+      /**
+       * Removes the whitespace from the given text.
+       *
+       * @param {String} text
+       * @return {String}
+       * @private
+       */
+      _removeWhitespace: function(text) {
+        return text.replace('/&nbsp;/g', '').trim();
       },
 
       /**
@@ -231,7 +254,7 @@ Custom property                  | Description                        | Default
         var beginTag = '<' + tags + '>';
         var endTag = '</' + tags + '>';
         var newlineTag = this.newlineTag === beginTag || this.newlineTag === endTag ? null : this.newlineTag;
-        return text ? this._findSpans(beginTag, endTag, newlineTag, text) : [];
+        return text ? this._findSpans(beginTag, endTag, newlineTag, text, []) : [];
       }
     });
   })();
