@@ -167,6 +167,9 @@ limitations under the License.
           styleClass: 'newline',
           text: ''
         }, {
+          styleClass: 'newline',
+          text: ''
+        }, {
           styleClass: '',
           text: 'the'
         }, {
@@ -209,17 +212,21 @@ limitations under the License.
         expect(element.$$('#span6').innerHTML).to.equal('');
         expect(element.$$('#span7')).to.exist;
         expect(element.$$('#span7').classList.contains('highlight')).to.be.false;
-        expect(element.$$('#span7').classList.contains('newline')).to.be.false;
-        expect(element.$$('#span7').innerHTML).to.equal('the');
+        expect(element.$$('#span7').classList.contains('newline')).to.be.true;
+        expect(element.$$('#span7').innerHTML).to.equal('');
         expect(element.$$('#span8')).to.exist;
-        expect(element.$$('#span8').classList.contains('highlight')).to.be.true;
+        expect(element.$$('#span8').classList.contains('highlight')).to.be.false;
         expect(element.$$('#span8').classList.contains('newline')).to.be.false;
-        expect(element.$$('#span8').innerHTML).to.equal('lazy');
+        expect(element.$$('#span8').innerHTML).to.equal('the');
         expect(element.$$('#span9')).to.exist;
-        expect(element.$$('#span9').classList.contains('highlight')).to.be.false;
+        expect(element.$$('#span9').classList.contains('highlight')).to.be.true;
         expect(element.$$('#span9').classList.contains('newline')).to.be.false;
-        expect(element.$$('#span9').innerHTML).to.equal('dog.');
-        expect(element.$$('#span10')).to.not.exist;
+        expect(element.$$('#span9').innerHTML).to.equal('lazy');
+        expect(element.$$('#span10')).to.exist;
+        expect(element.$$('#span10').classList.contains('highlight')).to.be.false;
+        expect(element.$$('#span10').classList.contains('newline')).to.be.false;
+        expect(element.$$('#span10').innerHTML).to.equal('dog.');
+        expect(element.$$('#span11')).to.not.exist;
       });
     });
   </script>

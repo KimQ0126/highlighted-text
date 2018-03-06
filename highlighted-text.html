@@ -152,13 +152,11 @@ Custom property                  | Description                        | Default
             });
           }
 
-          // Add a span for the newline if the previous span is not a newline.
-          if(!spans.length || spans[spans.length - 1].styleClass !== 'newline') {
-            spans.push({
-              text: '',
-              styleClass: 'newline'
-            });
-          }
+          // Add a span for the newline.
+          spans.push({
+            text: '',
+            styleClass: 'newline'
+          });
 
           // Recur on the text following the newline.
           return this._findSpans(beginTag, endTag, newlineTag, this._removeWhitespace(text.substring(newlineIndex + newlineTag.length)), spans);
@@ -186,13 +184,11 @@ Custom property                  | Description                        | Default
               });
             }
 
-            // Add a span for the newline if the previous span is not a newline.
-            if(!spans.length || spans[spans.length - 1].styleClass !== 'newline') {
-              spans.push({
-                text: '',
-                styleClass: 'newline'
-              });
-            }
+            // Add a span for the newline.
+            spans.push({
+              text: '',
+              styleClass: 'newline'
+            });
 
             // Recur on the text following the newline.  Add a highlight begin tag to the beginning of the text.
             return this._findSpans(beginTag, endTag, newlineTag, (beginTag + this._removeWhitespace(text.substring(newlineIndex + newlineTag.length))), spans);
